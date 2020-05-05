@@ -1,0 +1,43 @@
+--attribute
+draggable = "true"
+
+--events
+ondragstart = "dragStartHandler(event);"
+ondragover = "return false" // to prevent event propagation
+ondrop = "dropHandler(event);"
+ondragend // either successfully dropeed or cancelled
+--other events
+dragenter // change the look of drop zone
+dragleave // set the look of drop zone back to normal
+
+
+dragStartHandler(event) {
+ event.dataTransfer.setData("Fruit", event.target.dataset.value);
+}
+
+<div ondragover="return false" ondrop="dropHandler(event);">
+Drop your favorite fruits below:
+<ol id="droppedFruits"></ol>
+</div>
+
+function dropHandler(event) {
+   console.log('drop event, target: ' + event.target.innerHTML);
+   var data = event.dataTransfer.getData("Fruit");
+}
+
+
+--data-attribute
+user.dataset[phrase.name];
+user.getAttribute("data",phrase.name)
+
+--dropEffect
+event.dataTransfer.effectAllowed = 'copy'; // started dragging
+event.dataTransfer.dropEffect = 'copy' // over droppable element
+event.dataTransfer.dropEffect = 'move'
+event.dataTransfer.dropEffect = 'link'
+
+--custom-cursor
+var dragIcon = document.createElement('img');
+dragIcon.src = 'anImage.png';
+dragIcon.width = 100;
+event.dataTransfer.setDragImage(dragIcon, -10, -10);
